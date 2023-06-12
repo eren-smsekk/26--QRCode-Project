@@ -8,4 +8,4 @@
 </ul>
 
 # Screenshots
-![image](https://github.com/eren-smsekk/26--QRCode-Project/assets/115400485/13de50c7-052c-4b8e-8f79-3c592624f097)
+![image](https://github.com/eren-smsekk/26--QRCode-Project/assets/115400485/9aee0bad-9f1c-4ee3-8438-9dcbc1a2a9dd)
