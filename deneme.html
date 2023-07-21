@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
   <head>
     <meta charset="utf-8">
@@ -21,7 +21,6 @@
             margin: 0 30%;
         }
 
-
         @media (max-width: 992px) {
             .qrcode-box {
                 margin: 0 !important;
@@ -30,14 +29,9 @@
                 margin: 0 !important;
             }
         }
-        
     </style>
   </head>
   <body class="d-flex justify-content-center align-items-center vh-100 bg-dark text-light text-center flex-column">
-
-
-
-
     <div class="container">
         <h1 class="mb-4">QRCode Oluştur</h1>
         <div class="form-floating mb-3 qrcode-box">
@@ -47,15 +41,16 @@
         <div class="qrcodeBox">
             <div id="qrcode" class="d-inline-block" style="width:100px; height:100px; margin-top:15px;"></div>
         </div>
+        <button class="btn btn-danger mt-3" onclick="downloadQRCode()">QR Kodu İndir</button>
     </div>
-    
+
     <script type="text/javascript">
         var qrcode = new QRCode(document.getElementById("qrcode"), {
             width : 100,
             height : 100
         });
         
-        function makeCode () {		
+        function makeCode() {		
             var elText = document.getElementById("text");
             
             if (!elText.value) {
@@ -69,16 +64,34 @@
         
         makeCode();
         
-        $("#text").
-            on("blur", function () {
+        $("#text")
+            .on("blur", function () {
                 makeCode();
-            }).
-            on("keydown", function (e) {
+            })
+            .on("keydown", function (e) {
                 if (e.keyCode == 13) {
                     makeCode();
                 }
             });
-        
-        </script>
+
+        function getFileNameFromURL(url) {
+          console.log(url)
+            var filename = url.substring(url.lastIndexOf('/') + 1);
+            filename = filename.replace(/^https?:\/\//i, ''); // Remove "http://" or "https://"
+            filename = filename.replace(/\.(com|org|net|io|co|gov|edu|mil)$/i, ''); // Remove ".com", ".org", ".net", etc.
+            return filename;
+        }
+        function downloadQRCode() {
+            var qrCodeDiv = document.getElementById("qrcode");
+            var qrCodeImage = qrCodeDiv.querySelector("img");
+            var imageUrl = qrCodeImage.src;
+            var elText = document.getElementById("text").value;
+            var fileName = getFileNameFromURL(elText);
+            var a = document.createElement("a");
+            a.href = imageUrl;
+            a.download = fileName + ".png";
+            a.click();
+        }
+    </script>
   </body>
 </html>
